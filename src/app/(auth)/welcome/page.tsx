@@ -8,9 +8,14 @@ import { Leaf } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const Page = () => {
+const Page = ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) => {
   const router = useRouter();
   const [randomQuote, setRandomQuote] = useState("");
+  const isMobile = searchParams["mobile"] === "true";
 
   useEffect(() => {
     const quote = QUOTES[Math.floor(Math.random() * QUOTES.length)];
@@ -29,8 +34,8 @@ const Page = () => {
   });
 
   useEffect(() => {
-    if (data?.isSynced) router.push("/dashboard");
-  }, [data, router]);
+    if (data?.isSynced) router.push(isMobile ? "/mobile" : "/dashboard");
+  }, [data, router, isMobile]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
