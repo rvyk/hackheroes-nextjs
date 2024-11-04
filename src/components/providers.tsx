@@ -1,5 +1,6 @@
 "use client";
 
+import { plPL } from "@clerk/localizations";
 import { ClerkProvider } from "@clerk/nextjs";
 import {
   QueryCache,
@@ -31,7 +32,7 @@ export const Providers = ({ children }: PropsWithChildren) => {
   );
 
   return (
-    <ClerkProvider>
+    <ClerkProvider localization={plPL}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </ClerkProvider>
   );

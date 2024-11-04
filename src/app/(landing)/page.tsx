@@ -1,17 +1,18 @@
-"use client";
-
 import { Navbar } from "@/components/navbar";
 import { Button } from "@/components/ui/button";
+import { currentUser } from "@clerk/nextjs/server";
 import { EcoQuestInAction } from "./_components/eco-quest-in-action";
 import { Hero } from "./_components/hero";
 import { HowItWorks } from "./_components/how-it-works";
 import { Testimonials } from "./_components/testimonials";
 import { WhyEcoQuest } from "./_components/why-eco-quest";
 
-export default function Page() {
+const Page = async () => {
+  const user = await currentUser();
+
   return (
-    <section className="min-h-screen bg-green-50">
-      <Navbar />
+    <main className="min-h-screen bg-green-50">
+      <Navbar {...{ user }} />
       <Hero />
       <WhyEcoQuest />
       <HowItWorks />
@@ -37,6 +38,8 @@ export default function Page() {
           <p>&copy; 2023 EcoQuest. Wszystkie prawa zastrzeżone.</p>
         </div>
       </footer>
-    </section>
+    </main>
   );
-}
+};
+
+export default Page;

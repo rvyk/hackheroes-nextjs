@@ -1,11 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { currentUser } from "@clerk/nextjs/server";
+import { SignOutButton } from "@clerk/nextjs";
+import { User } from "@clerk/nextjs/server";
 import { Leaf } from "lucide-react";
 import Link from "next/link";
 
-export const Navbar = async () => {
-  const user = await currentUser();
+interface NavbarProps {
+  user: User | null;
+}
 
+export const Navbar = ({ user }: NavbarProps) => {
   return (
     <nav className="bg-green-600 p-4 text-white">
       <div className="container mx-auto flex items-center justify-between">
@@ -25,16 +28,29 @@ export const Navbar = async () => {
           </Link>
         </div>
         {user ? (
-          <Link href="/dashboard" className="hidden md:block">
-            <Button
-              variant="outline"
-              className="bg-white text-green-600 hover:bg-green-100"
-            >
-              Przejdź do panelu
-            </Button>
-          </Link>
+          <div className="flex items-center gap-5">
+            <SignOutButton>
+              <Button
+                variant="outline"
+                className="bg-white text-green-600 hover:bg-green-100"
+              >
+                Wyloguj się
+              </Button>
+            </SignOutButton>
+
+            <div className="h-8 w-px bg-green-200"></div>
+
+            <Link href="/dashboard" className="hidden md:block">
+              <Button
+                variant="outline"
+                className="bg-white text-green-600 hover:bg-green-100"
+              >
+                Przejdź do panelu
+              </Button>
+            </Link>
+          </div>
         ) : (
-          <Link href="/signin" className="hidden md:block">
+          <Link href="/sign-in" className="hidden md:block">
             <Button
               variant="outline"
               className="bg-white text-green-600 hover:bg-green-100"
