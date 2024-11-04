@@ -1,8 +1,7 @@
-import { cn } from "@/utils";
+import { Providers } from "@/components/providers";
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { EB_Garamond, Inter } from "next/font/google";
-
-import { Providers } from "@/components/providers";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -12,7 +11,9 @@ const eb_garamond = EB_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Hackheroes APP",
+  title: "EcoQuest - Twórz lepszy świat, jeden krok na raz",
+  description:
+    "Dołącz do EcoQuest i zacznij swoją przygodę z ekologicznym stylem życia!",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
@@ -24,10 +25,8 @@ export default function RootLayout({
   return (
     <Providers>
       <html lang="pl" className={cn(inter.variable, eb_garamond.variable)}>
-        <body className="flex min-h-[calc(100vh-1px)] flex-col bg-brand-50 font-sans text-brand-950 antialiased">
-          <main className="relative flex flex-1 flex-col">
-            <Providers>{children}</Providers>
-          </main>
+        <body className="relative flex min-h-[calc(100vh-1px)] flex-1 flex-col bg-gray-50 font-sans antialiased">
+          {children}
         </body>
       </html>
     </Providers>

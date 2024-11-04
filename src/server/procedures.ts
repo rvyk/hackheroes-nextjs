@@ -1,4 +1,4 @@
-import { db } from "@/db";
+import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { HTTPException } from "hono/http-exception";
 import { j } from "./__internals/j";

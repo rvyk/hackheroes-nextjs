@@ -1,6 +1,9 @@
-import { db } from "@/db";
+import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { DailyEcoTask } from "./_components/daily-eco-task";
+import { EcoLeaderboard } from "./_components/eco-leaderboard";
+import { EcoTodoList } from "./_components/eco-todo-list";
 
 const Page = async () => {
   const auth = await currentUser();
@@ -18,8 +21,14 @@ const Page = async () => {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <h1>dashboard page</h1>
+    <main className="flex min-h-screen w-full bg-gray-50 p-16">
+      <section className="flex w-full gap-8">
+        <EcoTodoList />
+        <div className="grid h-fit w-full gap-8">
+          <DailyEcoTask />
+          <EcoLeaderboard />
+        </div>
+      </section>
     </main>
   );
 };

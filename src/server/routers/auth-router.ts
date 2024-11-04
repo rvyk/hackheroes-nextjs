@@ -1,4 +1,4 @@
-import { db } from "@/db";
+import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { router } from "../__internals/router";
 import { publicProcedure } from "../procedures";
