@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
@@ -14,10 +11,52 @@ datasource db {
 model User {
   id         String  @id @default(cuid())
   externalId String? @unique
-
   email      String
+
+  challengeId          String?
+  currentChallenge     Challenge?         @relation(fields: [challengeId], references: [id])
+  currentChallengeDate DateTime?
+  challengeHistory     ChallengeHistory[]
+
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@index([email])
+}
+
+model ChallengeCategory {
+  id   String @id
+  name String
+
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now()) @updatedAt
+  Challenge Challenge[]
+}
+
+model Challenge {
+  id          String            @id @default(cuid())
+  title       String
+  description String
+  category    ChallengeCategory @relation(fields: [challengeCategoryId], references: [id])
+  points      Int
+
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @default(now()) @updatedAt
+  User                User[]
+  challengeCategoryId String
+}
+
+model ChallengeHistory {
+  id          String   @id @default(cuid())
+  userId      String
+  challengeId String
+  completedAt DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  User User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([challengeId])
 }
