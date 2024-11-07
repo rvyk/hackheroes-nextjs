@@ -20,6 +20,21 @@ const Page = async () => {
     return redirect("/welcome");
   }
 
+  const userDetails = [
+    await db.user.findFirst({
+      where: { email: user.email },
+      include: { adminOrganization: true, participantOrganizations: true },
+    }),
+  ];
+
+  if (user.isAdmin) {
+    return (
+      <main className="flex min-h-screen w-full bg-gray-50 p-16">
+        <code>{JSON.stringify(userDetails, null, 2)}</code>
+      </main>
+    );
+  }
+
   return (
     <main className="flex min-h-screen w-full bg-gray-50 p-16">
       <section className="flex w-full gap-8">

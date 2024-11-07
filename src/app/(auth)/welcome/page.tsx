@@ -24,7 +24,13 @@ const Page = ({
 
   const { data } = useQuery({
     queryFn: async () => {
-      const res = await client.auth.getDatabaseSyncStatus.$get();
+      const res = await client.auth.createAccount.$post({
+        type: "admin",
+        facilityData: {
+          name: "EcoQuest",
+          description: "Twoje miejsce do zrównoważonego życia",
+        },
+      });
       return await res.json();
     },
     queryKey: ["get-database-sync-status"],
