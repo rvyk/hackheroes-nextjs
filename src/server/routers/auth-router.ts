@@ -16,7 +16,7 @@ export const authRouter = router({
             name: z.string(),
             description: z.string(),
           })
-          .optional(),
+          .nullable(),
       }),
     )
     .mutation(async ({ c, ctx, input }) => {
