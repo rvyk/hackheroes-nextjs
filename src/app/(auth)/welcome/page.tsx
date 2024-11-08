@@ -23,7 +23,7 @@ import {
   User,
   Users,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 type UserType = "admin" | "user";
@@ -78,6 +78,7 @@ const ToggleButton = ({
 
 const Page = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [step, setStep] = useState(1);
   const [userType, setUserType] = useState<UserType>("user");
   const [facilityData, setFacilityData] = useState<FacilityData>({});
@@ -97,6 +98,7 @@ const Page = () => {
       .then(async (res) => {
         const data = await res.json();
         if (data.isSynced) {
+          if (!!searchParams.get("mobile")) return router.push("/mobile");
           router.push("/dashboard");
         }
       })
